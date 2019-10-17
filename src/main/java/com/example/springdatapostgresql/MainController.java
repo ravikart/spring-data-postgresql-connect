@@ -17,23 +17,27 @@ public class MainController {
 	@Autowired
 	public CodeCreationRepository repo;
 	
-	@Autowired
-	public CodeCreation codeCreation;
 	
-	@PostMapping(path="/add")
-	public @ResponseBody String addNewUser (@RequestParam String code
-			, @RequestParam String createrName,@RequestParam String groupName) {		
-		codeCreation.setCode(code);
-		codeCreation.setCreaterName(createrName);
-		codeCreation.setGroupName(groupName);
-		codeCreation.setCreatedDate(LocalDateTime.now());
-		codeCreation.setLastUpdatedDate(LocalDateTime.now());
-		repo.save(codeCreation);
+	@PostMapping(path="/createGroup")
+	public @ResponseBody String createGroup (@RequestParam String code
+			, @RequestParam String createrName,@RequestParam String groupName) {
+		GroupCreation groupCreation = new GroupCreation();
+		//groupCreation.setCode(code);
+		groupCreation.setCreaterName(createrName);
+		groupCreation.setGroupName(groupName);
+		groupCreation.setCreatedDate(LocalDateTime.now());
+		groupCreation.setLastUpdatedDate(LocalDateTime.now());
+		repo.save(groupCreation);
 		return "Saved";
 	}
 	
-	@GetMapping(path="/getAll")
-	public @ResponseBody Iterable<CodeCreation> getAllData(){
+	@GetMapping(path="/getAllGroup")
+	public @ResponseBody Iterable<GroupCreation> getAllGroup(){
 		return repo.findAll();
 	}
+	
+	
+	
+	
+	
 }

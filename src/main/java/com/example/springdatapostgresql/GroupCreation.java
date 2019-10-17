@@ -1,22 +1,21 @@
 package com.example.springdatapostgresql;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class CodeCreation {
+public class GroupCreation{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long groupId;
-	
-	@Column
-	private String code;
+	@EmbeddedId
+	private GroupCreatePrimaryCode groupCreatePrimaryCode;
 	
 	@Column
 	private String createrName;
@@ -24,20 +23,12 @@ public class CodeCreation {
 	@Column
 	private String groupName;
 	
-	public long getGroupId() {
-		return groupId;
+	public GroupCreatePrimaryCode groupCreatePrimaryCode() {
+		return groupCreatePrimaryCode;
 	}
 
-	public void setGroupId(long groupId) {
-		this.groupId = groupId;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
+	public void setGroupCreatePrimaryCode(GroupCreatePrimaryCode groupCreatePrimaryCode) {
+		this.groupCreatePrimaryCode = groupCreatePrimaryCode;
 	}
 
 	public String getCreaterName() {
@@ -78,4 +69,34 @@ public class CodeCreation {
 	@Column
 	private LocalDateTime lastUpdatedDate;
 	
+}
+
+@Embeddable
+class GroupCreatePrimaryCode implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5506613959088120732L;
+
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long groupId;
+	
+	private String groupCode;
+
+	public long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getGroupCode() {
+		return groupCode;
+	}
+
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
+	}
 }
